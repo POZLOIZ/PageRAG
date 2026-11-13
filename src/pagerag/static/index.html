@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <title>PageRAG 文档问答</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <symbol id="pagerag-mark" viewBox="0 0 32 32">
+      <path d="M8.5 7.5h15a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7.2l-4.8 3.8v-3.8H8.5a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2Z"
+            fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+      <path d="M11 12.4h9.8M11 16.1h6.1" fill="none" stroke="currentColor"
+            stroke-width="1.9" stroke-linecap="round"/>
+      <circle cx="21.6" cy="16.4" r="1.45" fill="currentColor"/>
+    </symbol>
+  </svg>
+  <header class="topbar">
+    <a class="brand" href="#chat" aria-label="PageRAG 首页">
+      <span class="brand-mark">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#pagerag-mark"></use></svg>
+      </span>
+      <span class="brand-name">PageRAG</span>
+    </a>
+    <nav class="tabs" role="tablist" aria-label="主导航">
+      <button class="tab is-active" id="tab-chat" data-tab="chat" type="button"
+              role="tab" aria-controls="panel-chat" aria-selected="true">问答</button>
+      <button class="tab" id="tab-library" data-tab="library" type="button"
+              role="tab" aria-controls="panel-library" aria-selected="false">知识库</button>
+      <button class="tab" id="tab-overview" data-tab="overview" type="button"
+              role="tab" aria-controls="panel-overview" aria-selected="false">概览</button>
+      <button class="tab" id="tab-settings" data-tab="settings" type="button"
+              role="tab" aria-controls="panel-settings" aria-selected="false">设置</button>
+    </nav>
+    <div class="topbar-end">
+      <div class="health" id="health-badge" title="服务状态">
+        <span class="health-dot"></span><span class="health-text">连接中</span>
+      </div>
+      <div class="account" id="account-chip" hidden>
+        <span class="account-name" id="account-name"></span>
+        <button class="ghost small" id="logout-button" type="button">退出</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel is-active" id="panel-chat" data-panel="chat"
+             role="tabpanel" aria-labelledby="tab-chat">
+      <div class="chat-layout">
+        <aside class="chat-side">
+          <button class="primary new-chat" id="new-chat" type="button">
+            <span aria-hidden="true">+</span> 新对话
+          </button>
+          <label class="search-field">
+            <span class="sr-only">搜索对话</span>
+            <input id="conversation-search" type="search" placeholder="搜索对话"
+                   autocomplete="off">
+          </label>
+          <div class="conversation-list" id="conversation-list">
+            <p class="muted">正在读取对话……</p>
+          </div>
+        </aside>
+
+        <div class="chat-column">
+          <div class="chat-head">
+            <div class="chat-head-main">
+              <h2 id="conversation-title">新对话</h2>
+              <p class="chat-head-meta" id="conversation-meta">选择知识库后开始提问</p>
+            </div>
+            <div class="chat-head-actions">
+              <button class="icon-button" id="rename-chat" type="button"
+                      title="重命名对话" aria-label="重命名对话" hidden>改名</button>
+              <button class="icon-button" id="delete-chat" type="button"
+                      title="删除对话" aria-label="删除对话" hidden>删除</button>
+            </div>
+          </div>
+
+          <div class="chat-scroll" id="chat-scroll">
+            <div class="chat-welcome" id="chat-welcome">
+              <span class="welcome-mark">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#pagerag-mark"></use></svg>
+              </span>
+              <h2>从资料里找答案</h2>
+              <p>提问后，回答会标注引用来源。</p>
+              <div class="suggestions" id="chat-suggestions"></div>
+            </div>
+            <div class="transcript" id="transcript" aria-live="polite"></div>
+          </div>
+
+          <div class="composer" id="chat-composer">
+            <form id="ask-form">
+              <label class="sr-only" for="question-input">问题</label>
+              <textarea id="question-input" rows="1" maxlength="2000"
+                        placeholder="输入问题…" required></textarea>
+              <div class="composer-bar">
+                <label class="scope-field">
+                  <span class="sr-only">知识库</span>
+                  <select id="chat-collection"></select>
+                </label>
+                <span class="composer-hint" id="composer-hint">Enter 发送，Shift + Enter 换行</span>
+                <button class="primary send-button" id="ask-button" type="submit">发送</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-library" data-panel="library" hidden
+             role="tabpanel" aria-labelledby="tab-library">
+      <div class="library-layout">
+        <aside class="collection-side">
+          <div class="side-head">
+            <h2>知识库</h2>
+          </div>
+          <div class="collection-list" id="collection-list">
+            <p class="muted">正在读取知识库……</p>
+          </div>
+          <form class="new-collection" id="create-collection-form">
+            <label class="sr-only" for="collection-name">新知识库名称</label>
+            <input id="collection-name" type="text" placeholder="新知识库名称"
+                   maxlength="80" required>
+            <button class="ghost" type="submit">创建</button>
+          </form>
+        </aside>
+
+        <div class="collection-main" id="collection-main">
+          <div class="empty-state">
+            <h2>还没有知识库</h2>
+            <p>在左侧创建一个知识库，然后导入文档。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-overview" data-panel="overview" hidden
+             role="tabpanel" aria-labelledby="tab-overview">
+      <div class="page-shell">
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">运行数据</p>
+            <h1>概览</h1>
+            <p class="page-sub">资料规模、回答质量和最近的查询，全部来自当前服务。</p>
+          </div>
+          <div class="page-head-actions">
+            <span class="page-stamp" id="overview-stamp"></span>
+            <button class="ghost" id="overview-refresh" type="button">刷新</button>
+          </div>
+        </div>
+        <div id="overview-content">
+          <div class="loading-panel"><span class="spinner"></span>正在汇总运行数据……</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-settings" data-panel="settings" hidden
+             role="tabpanel" aria-labelledby="tab-settings">
+      <div class="page-shell">
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">只读</p>
+            <h1>设置</h1>
+            <p class="page-sub">当前进程实际加载的检索、索引、模型与核验配置。密钥不会显示。</p>
+          </div>
+          <div class="page-head-actions">
+            <button class="ghost" id="settings-refresh" type="button">刷新</button>
+          </div>
+        </div>
+        <div id="settings-content">
+          <div class="loading-panel"><span class="spinner"></span>正在读取配置……</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="source-drawer" id="source-drawer" role="complementary"
+         aria-labelledby="drawer-title" hidden>
+    <div class="drawer-head">
+      <div>
+        <h2 id="drawer-title">引用来源</h2>
+        <p class="drawer-sub">回答中的编号对应以下原文</p>
+      </div>
+      <button class="icon-button" id="drawer-close" type="button"
+              aria-label="关闭引用来源">关闭</button>
+    </div>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+
+  <aside class="source-drawer detail-drawer" id="detail-drawer" role="complementary"
+         aria-labelledby="detail-drawer-title" hidden>
+    <div class="drawer-head">
+      <div>
+        <p class="eyebrow" id="detail-drawer-kicker">详情</p>
+        <h2 id="detail-drawer-title">查询详情</h2>
+        <p class="drawer-sub" id="detail-drawer-sub"></p>
+      </div>
+      <button class="icon-button" id="detail-drawer-close" type="button"
+              aria-label="关闭详情">关闭</button>
+    </div>
+    <div class="drawer-body" id="detail-drawer-body"></div>
+  </aside>
+
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title"></h3>
+      <p class="modal-message" id="modal-message"></p>
+      <label class="sr-only" for="modal-input" id="modal-input-label">名称</label>
+      <input class="modal-input" id="modal-input" type="text" maxlength="80"
+             aria-labelledby="modal-input-label" hidden>
+      <div class="modal-actions">
+        <button class="ghost" id="modal-cancel" type="button">取消</button>
+        <button class="primary" id="modal-ok" type="button">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/api.js" defer></script>
+  <script src="/static/auth.js" defer></script>
+  <script src="/static/markdown.js" defer></script>
+  <script src="/static/chat-render.js" defer></script>
+  <script src="/static/library.js" defer></script>
+  <script src="/static/detail.js" defer></script>
+  <script src="/static/overview.js" defer></script>
+  <script src="/static/settings.js" defer></script>
+  <script src="/static/chat.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

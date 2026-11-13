@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pagerag"
+version = "0.1.0"
+description = "跑在本地的文档问答工作台，回答里的引用能翻回原文"
+readme = "README.md"
+authors = [{ name = "POZLOIZ" }]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.120,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic-settings>=2.10,<3",
+  "sqlalchemy[asyncio]>=2.0,<3",
+  "asyncmy>=0.2.10,<1",
+  "cryptography>=46,<51", # MySQL 8 的 caching_sha2_password 首次认证需要 RSA 支持
+  "pymilvus>=2.6,<2.7",
+  "pymupdf>=1.26,<2",
+  "langchain-openai>=1.0,<2",
+  "tiktoken>=0.14,<1",
+  "httpx>=0.28,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/POZLOIZ/PageRAG"
+Repository = "https://github.com/POZLOIZ/PageRAG"
+
+[project.scripts]
+pagerag-check = "pagerag.envcheck:main"
+pagerag = "pagerag.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.14,<1"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+

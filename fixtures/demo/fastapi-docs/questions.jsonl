@@ -1,0 +1,58 @@
+{"question": "安装 FastAPI 时，标准依赖里包含哪些常用组件？", "source": "docs/zh/docs/index.md"}
+{"question": "怎么启动 FastAPI 开发服务器，并在修改代码后自动重载？", "source": "docs/zh/docs/tutorial/first-steps.md"}
+{"question": "FastAPI 自动生成的交互式 API 文档默认在哪个地址？", "source": "docs/zh/docs/tutorial/first-steps.md"}
+{"question": "怎样写一个最简单的 GET 路径操作并返回 JSON？", "source": "docs/zh/docs/tutorial/first-steps.md"}
+{"question": "路径参数如何声明类型，传入的值类型不匹配时会发生什么？", "source": "docs/zh/docs/tutorial/path-params.md"}
+{"question": "如何限制路径参数只能取预设的几个值？", "source": "docs/zh/docs/tutorial/path-params.md"}
+{"question": "路径参数本身包含斜杠时应该怎么声明？", "source": "docs/zh/docs/tutorial/path-params.md"}
+{"question": "查询参数的默认值和可选值分别怎么写？", "source": "docs/zh/docs/tutorial/query-params.md"}
+{"question": "查询参数怎样把字符串自动转换成布尔值或整数？", "source": "docs/zh/docs/tutorial/query-params.md"}
+{"question": "如何声明一个必填的查询参数？", "source": "docs/zh/docs/tutorial/query-params.md"}
+{"question": "怎样给查询参数添加最小长度和最大长度限制？", "source": "docs/zh/docs/tutorial/query-params-str-validations.md"}
+{"question": "如何用正则表达式限制查询参数的格式？", "source": "docs/zh/docs/tutorial/query-params-str-validations.md"}
+{"question": "怎样让一个查询参数接收多个值？", "source": "docs/zh/docs/tutorial/query-params-str-validations.md"}
+{"question": "查询参数怎样设置对外使用的别名？", "source": "docs/zh/docs/tutorial/query-params-str-validations.md"}
+{"question": "如何用自定义函数校验查询参数？", "source": "docs/zh/docs/tutorial/query-params-str-validations.md"}
+{"question": "路径参数怎样限制数值的最小值和最大值？", "source": "docs/zh/docs/tutorial/path-params-numeric-validations.md"}
+{"question": "怎样用 Pydantic 模型声明请求体？", "source": "docs/zh/docs/tutorial/body.md"}
+{"question": "请求体模型里如何声明一个列表字段？", "source": "docs/zh/docs/tutorial/body-nested-models.md"}
+{"question": "如何用 Field 给请求体字段添加默认值和校验约束？", "source": "docs/zh/docs/tutorial/body-fields.md"}
+{"question": "一个路径操作怎样同时接收路径参数、查询参数和请求体？", "source": "docs/zh/docs/tutorial/body-multiple-params.md"}
+{"question": "怎样在一个请求里接收多个 Pydantic 模型？", "source": "docs/zh/docs/tutorial/body-multiple-params.md"}
+{"question": "response_model 如何过滤响应中多余的字段？", "source": "docs/zh/docs/tutorial/response-model.md"}
+{"question": "怎样让响应模型不输出没有设置过的字段？", "source": "docs/zh/docs/tutorial/response-model.md"}
+{"question": "如何只返回响应模型中的部分字段？", "source": "docs/zh/docs/tutorial/response-model.md"}
+{"question": "如何修改路径操作的默认响应状态码？", "source": "docs/zh/docs/tutorial/response-status-code.md"}
+{"question": "响应状态码可以用哪些常量来代替数字？", "source": "docs/zh/docs/tutorial/response-status-code.md"}
+{"question": "怎样抛出带自定义状态码和详情的 HTTPException？", "source": "docs/zh/docs/tutorial/handling-errors.md"}
+{"question": "如何给错误响应添加自定义响应头？", "source": "docs/zh/docs/tutorial/handling-errors.md"}
+{"question": "怎样覆盖 FastAPI 默认的请求校验异常处理？", "source": "docs/zh/docs/tutorial/handling-errors.md"}
+{"question": "Depends 依赖注入的基本用法是什么？", "source": "docs/zh/docs/tutorial/dependencies/index.md"}
+{"question": "怎样在多个路径操作之间共享 Annotated 依赖？", "source": "docs/zh/docs/tutorial/dependencies/index.md"}
+{"question": "类作为依赖项时，怎样接收查询参数？", "source": "docs/zh/docs/tutorial/dependencies/classes-as-dependencies.md"}
+{"question": "子依赖项在同一个请求里会被重复执行吗？", "source": "docs/zh/docs/tutorial/dependencies/sub-dependencies.md"}
+{"question": "OAuth2PasswordBearer 怎样从请求头读取 Bearer token？", "source": "docs/zh/docs/tutorial/security/first-steps.md"}
+{"question": "怎样实现用户名密码登录并返回 access_token？", "source": "docs/zh/docs/tutorial/security/simple-oauth2.md"}
+{"question": "如何用安全依赖项获取当前登录用户？", "source": "docs/zh/docs/tutorial/security/simple-oauth2.md"}
+{"question": "怎样上传单个文件并读取文件内容？", "source": "docs/zh/docs/tutorial/request-files.md"}
+{"question": "如何限制上传文件只能是图片？", "source": "docs/zh/docs/tutorial/request-files.md"}
+{"question": "怎样一次上传多个文件？", "source": "docs/zh/docs/tutorial/request-files.md"}
+{"question": "怎样同时提交表单字段和文件？", "source": "docs/zh/docs/tutorial/request-forms-and-files.md"}
+{"question": "如何用 SQLModel 定义数据库模型并创建表？", "source": "docs/zh/docs/tutorial/sql-databases.md"}
+{"question": "怎样通过依赖项给路径操作提供数据库会话？", "source": "docs/zh/docs/tutorial/sql-databases.md"}
+{"question": "数据库应用里怎样区分创建、读取和更新用的模型？", "source": "docs/zh/docs/tutorial/sql-databases.md"}
+{"question": "如何用 APIRouter 把路由拆分到多个文件？", "source": "docs/zh/docs/tutorial/bigger-applications.md"}
+{"question": "怎样给 APIRouter 设置统一的 prefix 和 tags？", "source": "docs/zh/docs/tutorial/bigger-applications.md"}
+{"question": "怎样在一个 APIRouter 中包含另一个 APIRouter？", "source": "docs/zh/docs/tutorial/bigger-applications.md"}
+{"question": "怎样用 BackgroundTasks 在响应返回后执行任务？", "source": "docs/zh/docs/tutorial/background-tasks.md"}
+{"question": "后台任务函数可以通过依赖注入拿到数据库连接吗？", "source": "docs/zh/docs/tutorial/background-tasks.md"}
+{"question": "怎样编写自定义中间件统计请求处理时间？", "source": "docs/zh/docs/tutorial/middleware.md"}
+{"question": "多个中间件的执行顺序是怎样的？", "source": "docs/zh/docs/tutorial/middleware.md"}
+{"question": "怎样配置 CORSMiddleware 允许指定的前端来源访问？", "source": "docs/zh/docs/tutorial/cors.md"}
+{"question": "如何用 TestClient 测试 FastAPI 应用？", "source": "docs/zh/docs/tutorial/testing.md"}
+{"question": "怎样让代码修改后自动重载并配合调试器排查问题？", "source": "docs/zh/docs/tutorial/debugging.md"}
+{"question": "怎样把静态文件目录挂载到 FastAPI 应用上？", "source": "docs/zh/docs/tutorial/static-files.md"}
+{"question": "怎样用 pydantic-settings 从环境变量读取配置？", "source": "docs/zh/docs/advanced/settings.md"}
+{"question": "如何从 .env 文件加载应用设置？", "source": "docs/zh/docs/advanced/settings.md"}
+{"question": "怎样用 lifespan 管理应用启动和关闭时的资源？", "source": "docs/zh/docs/advanced/events.md"}
+{"question": "为什么现在推荐 lifespan 而不是 startup 和 shutdown 事件？", "source": "docs/zh/docs/advanced/events.md"}
