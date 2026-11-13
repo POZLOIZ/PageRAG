@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "pagerag"
 version = "0.1.0"
-description = "跑在本地的文档问答工作台，回答里的引用能翻回原文"
+description = "在自己电脑上问文档，回答里的编号能点回原文"
 readme = "README.md"
 authors = [{ name = "POZLOIZ" }]
 requires-python = ">=3.12,<3.13"
